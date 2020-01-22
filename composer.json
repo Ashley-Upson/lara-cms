@@ -1,0 +1,29 @@
+{
+  "name": "ashley-upson/lara-cms",
+  "description": "Travcom invoice generation package",
+  "authors": [
+    {
+      "name": "Ashley Upson",
+      "email": "ashley@dotnet.wtf"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "AshleyUpson\\LaraCMS\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel" : {
+      "providers" : [
+        "AshleyUpson\\LaraCMS\\CMSServiceProvider"
+      ]
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://github.com/ashley-upson/lara-cms"
+    }
+  ]
+}
