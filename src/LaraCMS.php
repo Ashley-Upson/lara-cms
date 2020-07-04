@@ -7,27 +7,24 @@ use AshleyUpson\LaraCMS\Models\Navigation;
 use AshleyUpson\LaraCMS\Models\Page;
 use Illuminate\Support\Facades\Auth;
 
-class CMS
+class LaraCMS
 {
-    public function getPageContent(Page $page)
+    public static function getPageContent(Page $page)
     {
-        /**
-         * @todo: Implement getPageContent on the CMS facade.
-         */
         return 'Facade worked!!!';
     }
 
-    public function renderPage(Page $page)
+    public static function renderPage(Page $page)
     {
         $data = [
             'page' => $page,
             'navbar' => self::getNavbar()
         ];
 
-        return view('themes.default.pages.main', $data);
+        return view('laracms::themes.default.pages.main', $data);
     }
 
-    public function getNavbar()
+    public static function getNavbar()
     {
         $navbar = Navigation::query()->where('navigation_id', null)->with('children')->orderBy('order');
 
@@ -37,7 +34,7 @@ class CMS
         return $navbar->get();
     }
 
-    public function getCustomRoutes()
+    public static function getCustomRoutes()
     {
         $routes = CustomRoute::query();
 
@@ -47,7 +44,7 @@ class CMS
         return $routes->get();
     }
 
-    public function attributeString($attributes)
+    public static function attributeString($attributes)
     {
         $string = '';
 
@@ -57,13 +54,16 @@ class CMS
         return $string;
     }
 
-    public function getPageTypes()
+    public static function getPageTypes()
     {
         /**
          * @todo: Properly implement page types.
          */
         return [
-            (object)['label' => 'Standard', 'value' => 'standard']
+            (object)[
+                'label' => 'Standard',
+                'value' => 'standard'
+            ]
         ];
     }
 }

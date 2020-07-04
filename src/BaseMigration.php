@@ -13,7 +13,7 @@ use Illuminate\Database\Migrations\Migration;
  * @property string usersConnection
  * @property string usersTable
  *
- * @todo: Write tests to check successful table builds with various configs in a clean laravel project.
+ * todo: Write tests to check successful table builds with various configs in a clean laravel project.
  */
 class BaseMigration extends Migration
 {

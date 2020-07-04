@@ -1,10 +1,10 @@
 {
   "name": "ashley-upson/lara-cms",
-  "description": "Travcom invoice generation package",
+  "description": "CMS functionality for Laravel",
   "authors": [
     {
       "name": "Ashley Upson",
-      "email": "ashley@dotnet.wtf"
+      "email": "ash@dotnet.wtf"
     }
   ],
   "minimum-stability": "dev",

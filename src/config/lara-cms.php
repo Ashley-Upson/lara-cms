@@ -3,9 +3,11 @@
 return [
     /**
      * LaraCMS uses these two config options to determine where your users are stored.
+     * You may also choose to have LaraCMS handle authentication for you.
      */
     'users_connection' => 'mysql',
     'users_table' => 'users',
+    'use_cms_authentication' => true,
 
     /**
      * LaraCMS will host the CMS admin panel at the following URL.
