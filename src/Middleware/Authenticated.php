@@ -5,6 +5,7 @@ namespace AshleyUpson\LaraCMS\Middleware;
 use AshleyUpson\LaraCMS\Models\UserData;
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class Authenticated
 {
@@ -22,9 +23,9 @@ class Authenticated
         }
 
         if(config('lara-cms.use_cms_authentication') === true) {
-            return redirect()->route('laracms::get.auth/login')->with([
+            return redirect()->to((config('lara-cms.use_cms_authentication') === true ? route('laracms::get.auth/login') : config('lara-cms.login_route')))->with([
                 'error' => 'You need to be logged in to access that page.',
-                'next' => $request->headers->get('referer')
+                'next' => URL::current()
             ]);
         }
     }

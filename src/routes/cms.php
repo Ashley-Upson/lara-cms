@@ -2,7 +2,7 @@
 
 // CMS admin routing.
 
-Route::namespace('AshleyUpson\LaraCMS\Controllers')->as('laracms::')->middleware('web', 'auth')->group(function() {
+Route::namespace('AshleyUpson\LaraCMS\Controllers')->as('laracms::')->middleware('web')->group(function() {
 //    Route::prefix('admin')->middleware('admin')->group(function() {
     Route::prefix('admin')->namespace('Admin')->middleware([
         'AshleyUpson\LaraCMS\Middleware\Authenticated',
@@ -26,6 +26,8 @@ Route::namespace('AshleyUpson\LaraCMS\Controllers')->as('laracms::')->middleware
 
         Route::get('register', 'AuthController@viewRegister')->name('get.auth/register');
         Route::post('register', 'AuthController@register')->name('post.auth/register');
+
+        Route::get('logout', 'AuthController@logout')->name('get.auth/logout');
     });
 
     foreach(\AshleyUpson\LaraCMS\LaraCMS::getCustomRoutes() as $route) {

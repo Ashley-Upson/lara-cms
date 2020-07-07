@@ -12,9 +12,9 @@ class AuthController extends Controller
 {
     public function viewLogin()
     {
-//        if(Auth::check()) {
-//            return redirect()->back();
-//        }
+        if(Auth::check()) {
+            return redirect()->back();
+        }
 
         return view('laracms::themes.default.auth.login');
     }
@@ -26,6 +26,13 @@ class AuthController extends Controller
         }
 
         return view('laracms::themes.default.auth.register');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->to('/');
     }
 
     public function login(Request $request)

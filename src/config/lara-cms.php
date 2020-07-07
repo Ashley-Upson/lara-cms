@@ -7,7 +7,16 @@ return [
      */
     'users_connection' => 'mysql',
     'users_table' => 'users',
+
+    /**
+     * LaraCMS can be configured to use it's own authentication so you don't have to.
+     * The below config fields should be set to your own routes if you use your own authentication.
+     * The login and register routes are ignored if use_cms_authentication is true.
+     * When use_cms_authentication is false, the login and register routes will be used as URLs.
+     */
     'use_cms_authentication' => true,
+    'login_route' => null,
+    'register_route' => null,
 
     /**
      * LaraCMS will host the CMS admin panel at the following URL.

@@ -24,6 +24,10 @@
             View Custom Routes
             <br />
             Add Custom Route
+            <br />
+            View Forms
+            <br />
+            Create New Form
         </div>
     </div>
 @endsection
