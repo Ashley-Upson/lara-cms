@@ -4,5 +4,5 @@
             {{ $component->label }}
         </span>
     </div>
-    <input type="email" name="{{ $component->name }}" {!! \AshleyUpson\LaraCMS\LaraCMS::attributeString($component->attributes) !!} placeholder="{{ $component->placeholder }}" {{ $component->is_required == 1 ? 'required' : '' }} {{ $component->is_disabled == 1 ? 'disabled' : '' }} />
+    <input type="email" name="{{ $component->name }}" {!! \LaraCMS\LaraCMS::attributeString($component->attributes) !!} placeholder="{{ $component->placeholder }}" {{ $component->is_required == 1 ? 'required' : '' }} {{ $component->is_disabled == 1 ? 'disabled' : '' }} />
 </div>

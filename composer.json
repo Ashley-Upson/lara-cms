@@ -10,13 +10,13 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "AshleyUpson\\LaraCMS\\": "src/"
+      "LaraCMS\\": "src/"
     }
   },
   "extra": {
     "laravel" : {
       "providers" : [
-        "AshleyUpson\\LaraCMS\\CMSServiceProvider"
+        "LaraCMS\\CMSServiceProvider"
       ]
     }
   },

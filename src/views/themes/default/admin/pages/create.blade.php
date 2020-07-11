@@ -4,20 +4,8 @@
     Admin - Create page
 @endsection
 
-@section('header')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/codemirror.css') }}">
-    <script type="text/javascript" src="{{ asset('js/codemirror.js') }}"></script>
-    <script type="text/javascript">
-        var editor = CodeMirror.fromTextArea(myTextarea, {
-            lineNumbers: true
-        });
-    </script>
-@endsection
-
 @section('navigation')
-    @if($page->show_navigation == 1)
-        @include('laracms::themes.default.layouts.navigation', ['navbar' => \AshleyUpson\LaraCMS\LaraCMS::getNavbar()])
-    @endif
+    @include('laracms::themes.default.layouts.navigation', ['navbar' => \LaraCMS\LaraCMS::getNavbar()])
 @endsection
 
 @section('content')
@@ -37,7 +25,7 @@
             </div>
             <select name="type" class="form-control" required>
                 <option selected="selected" disabled>Page type...</option>
-                @foreach(\AshleyUpson\LaraCMS\LaraCMS::getPageTypes() as $type)
+                @foreach(\LaraCMS\LaraCMS::getPageTypes() as $type)
                     <option value="{{ $type->value }}">{{ $type->label }}</option>
                 @endforeach
             </select>

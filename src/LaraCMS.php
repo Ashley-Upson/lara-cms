@@ -1,10 +1,11 @@
 <?php
 
-namespace AshleyUpson\LaraCMS;
+namespace LaraCMS;
 
-use AshleyUpson\LaraCMS\Models\CustomRoute;
-use AshleyUpson\LaraCMS\Models\Navigation;
-use AshleyUpson\LaraCMS\Models\Page;
+use LaraCMS\Models\CustomRoute;
+use LaraCMS\Models\Navigation;
+use LaraCMS\Models\Page;
+use LaraCMS\Models\UserData;
 use Illuminate\Support\Facades\Auth;
 
 class LaraCMS
@@ -28,7 +29,7 @@ class LaraCMS
     {
         $navbar = Navigation::query()->where('navigation_id', null)->with('children')->orderBy('order');
 
-        if(Auth::check() == false || Auth::user()->is_admin == 0)
+        if(Auth::check() === false || self::userIsAdmin(Auth::user()->id) === false)
             $navbar->where('is_published', 1);
 
         return $navbar->get();
@@ -38,7 +39,7 @@ class LaraCMS
     {
         $routes = CustomRoute::query();
 
-        if(Auth::check() == false || Auth::user()->is_admin == 0)
+        if(Auth::check() === false || self::userIsAdmin(Auth::user()->id) === false)
             $routes = $routes->where('is_published', 1);
 
         return $routes->get();
@@ -65,5 +66,12 @@ class LaraCMS
                 'value' => 'standard'
             ]
         ];
+    }
+
+    public static function userIsAdmin($userID)
+    {
+        $data = UserData::where('user_id', $userID)->first();
+
+        return $data->is_admin === true;
     }
 }

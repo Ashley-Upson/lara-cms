@@ -5,7 +5,7 @@
 @endsection
 
 @section('navigation')
-    @include('laracms::themes.default.layouts.navigation', ['navbar' => \AshleyUpson\LaraCMS\LaraCMS::getNavbar()])
+    @include('laracms::themes.default.layouts.navigation', ['navbar' => \LaraCMS\LaraCMS::getNavbar()])
 @endsection
 
 @section('content')

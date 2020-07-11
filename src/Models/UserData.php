@@ -1,6 +1,6 @@
 <?php
 
-namespace AshleyUpson\LaraCMS\Models;
+namespace LaraCMS\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;

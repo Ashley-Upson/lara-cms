@@ -23,7 +23,7 @@
     </head>
     <body>
         @yield('navigation')
-        <div class="container nav-fix">
+        <div class="container-fluid nav-fix">
             <div class="row">
                 <div class="col-lg-2">
                     @yield('left-sidebar')

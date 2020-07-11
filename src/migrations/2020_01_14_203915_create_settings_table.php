@@ -1,6 +1,6 @@
 <?php
 
-use AshleyUpson\LaraCMS\BaseMigration;
+use LaraCMS\BaseMigration;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 

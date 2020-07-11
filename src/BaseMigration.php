@@ -1,12 +1,12 @@
 <?php
 
-namespace AshleyUpson\LaraCMS;
+namespace LaraCMS;
 
 use Illuminate\Database\Migrations\Migration;
 
 /**
  * Class BaseMigration
- * @package AshleyUpson\LaraCMS
+ * @package LaraCMS
  *
  * @property string cmsConnection
  * @property string cmsTablePrefix

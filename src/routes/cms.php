@@ -2,19 +2,25 @@
 
 // CMS admin routing.
 
-Route::namespace('AshleyUpson\LaraCMS\Controllers')->as('laracms::')->middleware('web')->group(function() {
+Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware('web')->group(function() {
 //    Route::prefix('admin')->middleware('admin')->group(function() {
     Route::prefix('admin')->namespace('Admin')->middleware([
-        'AshleyUpson\LaraCMS\Middleware\Authenticated',
-        'AshleyUpson\LaraCMS\Middleware\CheckUserIsAdmin'
+        'LaraCMS\Middleware\Authenticated',
+        'LaraCMS\Middleware\CheckUserIsAdmin'
     ])->group(function() {
         Route::get('/', 'AdminController@index')->name('get.admin');
 
-        Route::prefix('pages')->group(function() {
-            Route::get('/', 'PageController@index')->name('get.admin/pages/index');
-            Route::get('create', 'PageController@create')->name('get.admin/pages/create');
-            Route::post('store', 'PageController@store')->name('post.admin/pages/store');
-        });
+        Route::resource('pages', 'PageController', [
+            'names' => [
+                'index' => 'get.admin/pages/index',
+                'show' => 'get.admin/pages/show',
+                'create' => 'get.admin/pages/create',
+                'store' => 'post.admin/pages/store',
+                'edit' => 'get.admin/pages/edit',
+                'update' => 'put.admin/pages/update',
+                'destroy' => 'delete.admin/pages/delete'
+            ]
+        ]);
     });
 
     // Standard CMS routes.
@@ -30,7 +36,7 @@ Route::namespace('AshleyUpson\LaraCMS\Controllers')->as('laracms::')->middleware
         Route::get('logout', 'AuthController@logout')->name('get.auth/logout');
     });
 
-    foreach(\AshleyUpson\LaraCMS\LaraCMS::getCustomRoutes() as $route) {
+    foreach(\LaraCMS\LaraCMS::getCustomRoutes() as $route) {
         if($route->page_id != null) {
             Route::{$route->request_method}($route->custom_route, [
                 'uses' => 'PageController@show',

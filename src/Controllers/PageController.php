@@ -1,9 +1,9 @@
 <?php
 
-namespace AshleyUpson\LaraCMS\Controllers;
+namespace LaraCMS\Controllers;
 
 use App\Http\Controllers\Controller;
-use AshleyUpson\LaraCMS\Models\Page;
+use LaraCMS\Models\Page;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -14,6 +14,6 @@ class PageController extends Controller
 
         if($page == null) abort(404);
 
-        return \AshleyUpson\LaraCMS\LaraCMS::renderPage($page);
+        return \LaraCMS\LaraCMS::renderPage($page);
     }
 }

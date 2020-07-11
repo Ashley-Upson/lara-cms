@@ -1,6 +1,6 @@
 <?php
 
-namespace AshleyUpson\LaraCMS\Models;
+namespace LaraCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

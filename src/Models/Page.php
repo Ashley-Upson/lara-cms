@@ -1,6 +1,6 @@
 <?php
 
-namespace AshleyUpson\LaraCMS\Models;
+namespace LaraCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,13 +17,19 @@ class Page extends Model
         'name',
         'title',
         'is_published',
-        'type'
+        'show_navigation',
+        'type',
     ];
 
     protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at'
+    ];
+
+    protected $casts = [
+        'is_published' => 'boolean',
+        'show_navigation' => 'boolean'
     ];
 
     public function theme()

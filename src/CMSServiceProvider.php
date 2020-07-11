@@ -1,6 +1,6 @@
 <?php
 
-namespace AshleyUpson\LaraCMS;
+namespace LaraCMS;
 
 use Illuminate\Support\ServiceProvider;
 

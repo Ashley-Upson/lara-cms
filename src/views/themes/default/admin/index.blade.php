@@ -9,17 +9,19 @@
 @endsection
 
 @section('navigation')
-    @if($page->show_navigation == 1)
-        @include('laracms::themes.default.layouts.navigation', ['navbar' => \AshleyUpson\LaraCMS\LaraCMS::getNavbar()])
-    @endif
+    @include('laracms::themes.default.layouts.navigation', ['navbar' => \LaraCMS\LaraCMS::getNavbar()])
 @endsection
 
 @section('left-sidebar')
     <div class="row">
         <div class="col-lg-12">
-            View Pages
+            <a href="{{ route('laracms::get.admin/pages/index') }}">
+                View Pages
+            </a>
             <br />
-            Add Page
+            <a href="{{ route('laracms::get.admin/pages/create') }}">
+                Add Page
+            </a>
             <br />
             View Custom Routes
             <br />
@@ -28,6 +30,8 @@
             View Forms
             <br />
             Create New Form
+            <br />
+            Manage Navigation
         </div>
     </div>
 @endsection

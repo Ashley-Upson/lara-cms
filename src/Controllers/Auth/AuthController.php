@@ -1,6 +1,6 @@
 <?php
 
-namespace AshleyUpson\LaraCMS\Controllers\Auth;
+namespace LaraCMS\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;

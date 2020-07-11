@@ -1,8 +1,8 @@
 <?php
 
-namespace AshleyUpson\LaraCMS\Middleware;
+namespace LaraCMS\Middleware;
 
-use AshleyUpson\LaraCMS\Models\UserData;
+use LaraCMS\Models\UserData;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
