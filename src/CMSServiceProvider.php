@@ -10,6 +10,7 @@ class CMSServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/config/lara-cms.php' => config_path('lara-cms.php'),
+            __DIR__ . '/views' => resource_path('views/vendor/laracms'),
         ]);
 
         $this->mergeConfigFrom(__DIR__ . '/config/lara-cms.php', 'lara-cms');

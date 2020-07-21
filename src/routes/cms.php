@@ -2,7 +2,10 @@
 
 // CMS admin routing.
 
-Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware('web')->group(function() {
+Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware([
+    'web',
+    'auth'
+])->group(function() {
 //    Route::prefix('admin')->middleware('admin')->group(function() {
     Route::prefix('admin')->namespace('Admin')->middleware([
         'LaraCMS\Middleware\Authenticated',
@@ -13,14 +16,23 @@ Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware('web')->gro
         Route::resource('pages', 'PageController', [
             'names' => [
                 'index' => 'get.admin/pages/index',
-                'show' => 'get.admin/pages/show',
                 'create' => 'get.admin/pages/create',
                 'store' => 'post.admin/pages/store',
                 'edit' => 'get.admin/pages/edit',
                 'update' => 'put.admin/pages/update',
                 'destroy' => 'delete.admin/pages/delete'
             ]
-        ]);
+        ])->except(['show']);
+
+        Route::resource('pages/{page}/content', 'ContentController', [
+            'names' => [
+                'create' => 'get.admin/pages/content/create',
+                'store' => 'post.admin/pages/content/store',
+                'edit' => 'get.admin/pages/content/edit',
+                'update' => 'put.admin/pages/content/update',
+                'delete' => 'delete.admin/pages/content/delete',
+            ]
+        ])->except(['show']);
     });
 
     // Standard CMS routes.
@@ -36,7 +48,7 @@ Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware('web')->gro
         Route::get('logout', 'AuthController@logout')->name('get.auth/logout');
     });
 
-    foreach(\LaraCMS\LaraCMS::getCustomRoutes() as $route) {
+    foreach(\LaraCMS\LaraCMS::getPublishedCustomRoutes() as $route) {
         if($route->page_id != null) {
             Route::{$route->request_method}($route->custom_route, [
                 'uses' => 'PageController@show',
@@ -46,6 +58,19 @@ Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware('web')->gro
             Route::{$route->request_method}($route->custom_route, '\App\Http\Controllers\\' . $route->custom_handler)->name($route->request_method . '.' . $route->custom_route);
         }
     }
+
+    Route::middleware('LaraCMS\Middleware\CheckUserIsAdmin')->group(function() {
+        foreach(\LaraCMS\LaraCMS::getUnpublishedCustomRoutes() as $route) {
+            if($route->page_id != null) {
+                Route::{$route->request_method}($route->custom_route, [
+                    'uses' => 'PageController@show',
+                    'page' => $route->page_id
+                ])->name('get.' . $route->custom_route);
+            } else {
+                Route::{$route->request_method}($route->custom_route, '\App\Http\Controllers\\' . $route->custom_handler)->name($route->request_method . '.' . $route->custom_route);
+            }
+        }
+    });
 });
 
 

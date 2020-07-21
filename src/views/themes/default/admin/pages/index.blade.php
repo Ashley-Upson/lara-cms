@@ -19,6 +19,11 @@
         </div>
     @endif
 
+    <div class="float-right">
+        <a href="{{ route('laracms::get.admin/pages/create') }}" class="btn btn-sm btn-success">
+            Add Page
+        </a>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <table class="table table-responsive table-condensed">
@@ -75,11 +80,23 @@
                                 {{ $page->type }}
                             </td>
                             <td>
-                                <a href="{{ route('laracms::get.admin/pages/edit', $page->id) }}" class="btn btn-sm btn-warning">
-                                    Edit
-                                </a>
-                                |
-
+                                <form name="delete_page_{{ $page->id }}" class="form form-inline" action="{{ route('laracms::delete.admin/pages/delete', $page->id) }}" method="post">
+                                    {{ csrf_field() }}
+                                    @method('delete')
+                                    <div class="form-group">
+                                        <div class="btn-group">
+                                            <a href="{{ route('laracms::get.page', $page->id) }}" class="btn btn-sm btn-success">
+                                                View
+                                            </a>
+                                            <a href="{{ route('laracms::get.admin/pages/edit', $page->id) }}" class="btn btn-sm btn-warning">
+                                                Edit
+                                            </a>
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </td>
                         </tr>
                     @empty

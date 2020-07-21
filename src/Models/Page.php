@@ -41,4 +41,9 @@ class Page extends Model
     {
         return $this->hasMany(Content::class, 'page_id', 'id')->orderBy('order');
     }
+
+    public function routes()
+    {
+        return $this->hasMany(CustomRoute::class, 'page_id', 'id');
+    }
 }

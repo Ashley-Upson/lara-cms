@@ -27,6 +27,11 @@ class Content extends Model
         'deleted_at'
     ];
 
+    protected $casts = [
+        'is_html' => 'boolean',
+        'is_hidden' => 'boolean',
+    ];
+
     public function attributes()
     {
         return $this->hasMany(FormAttribute::class, 'content_id', 'id');

@@ -51,4 +51,35 @@ class PageController extends Controller
 
         return redirect()->route('laracms::get.admin/pages/create')->with('success', 'Page (' . $name . ') created successfully');
     }
+
+    public function edit(Page $page)
+    {
+        $page->load('content');
+
+        return view('laracms::themes.default.admin.pages.edit', [
+            'page' => $page
+        ]);
+    }
+
+    public function update(Request $request, Page $page)
+    {
+        $data = $request->all();
+        $data['show_navigation'] = isset($data['show_navigation']) && $data['show_navigation'] == 'on';
+        $data['is_published'] = isset($data['is_published']) && $data['is_published'] == 'on';
+
+        $page->update($data);
+
+        return redirect()->route('laracms::get.admin/pages/edit', $page->id)->with([
+            'success' => 'Page details updated successfully.'
+        ]);
+    }
+
+    public function destroy(Page $page)
+    {
+        $page->delete();
+
+        return redirect()->route('laracms::get.admin/pages/index')->with([
+            'success' => 'Page successfully deleted.'
+        ]);
+    }
 }

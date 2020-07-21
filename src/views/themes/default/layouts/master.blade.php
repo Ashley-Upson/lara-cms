@@ -43,5 +43,6 @@
                 </div>
             </div>
         </div>
+        @yield('footer')
     </body>
 </html>

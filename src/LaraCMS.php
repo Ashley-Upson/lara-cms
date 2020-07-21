@@ -2,6 +2,7 @@
 
 namespace LaraCMS;
 
+use Illuminate\Support\Facades\Log;
 use LaraCMS\Models\CustomRoute;
 use LaraCMS\Models\Navigation;
 use LaraCMS\Models\Page;
@@ -35,14 +36,26 @@ class LaraCMS
         return $navbar->get();
     }
 
-    public static function getCustomRoutes()
+    public static function getPublishedCustomRoutes()
     {
-        $routes = CustomRoute::query();
+        try {
+            return CustomRoute::where('is_published', 1)->get();
+        } catch(\Exception $exception) {
+            Log::warning('LaraCMS: Encountered an error while attempting to load published routes: ' . $exception->getMessage());
 
-        if(Auth::check() === false || self::userIsAdmin(Auth::user()->id) === false)
-            $routes = $routes->where('is_published', 1);
+            return [];
+        }
+    }
 
-        return $routes->get();
+    public static function getUnpublishedCustomRoutes()
+    {
+        try {
+            return CustomRoute::where('is_published', 0)->get();
+        } catch(\Exception $exception) {
+            Log::warning('LaraCMS: Encountered an error while attempting to load published routes: ' . $exception->getMessage());
+
+            return [];
+        }
     }
 
     public static function attributeString($attributes)
@@ -58,13 +71,28 @@ class LaraCMS
     public static function getPageTypes()
     {
         /**
-         * @todo: Properly implement page types.
+         * todo: Properly implement page types.
          */
         return [
             (object)[
                 'label' => 'Standard',
                 'value' => 'standard'
             ]
+        ];
+    }
+
+    public static function getContentTypes()
+    {
+        return [
+            'text',
+            'paragraph',
+            'html',
+            'blade',
+            'image',
+            'table',
+            'form',
+            'link',
+            'file',
         ];
     }
 

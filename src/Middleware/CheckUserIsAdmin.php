@@ -17,10 +17,12 @@ class CheckUserIsAdmin
      */
     public function handle($request, Closure $next)
     {
-        $data = UserData::where('user_id', Auth::user()->id)->first();
+        if(Auth::check()) {
+            $data = UserData::where('user_id', Auth::user()->id)->first();
 
-        if($data->is_admin === true) {
-            return $next($request);
+            if($data->is_admin === true) {
+                return $next($request);
+            }
         }
 
         return redirect()->back()->with([
