@@ -12,7 +12,8 @@ class ContentController extends Controller
     public function create(Page $page)
     {
         return view('laracms::themes.default.admin.content.create', [
-            'page' => $page
+            'page' => $page,
+            'pages' => Page::all(),
         ]);
     }
 
@@ -24,11 +25,19 @@ class ContentController extends Controller
         $data['order'] = count($page->content) + 1;
         $data['content'] = $data['content_' . $data['type']];
 
+        if($data['type'] === 'html' || $data['type'] === 'blade') {
+            // Because CodeMirror thinks using windows new lines is somehow a good idea.
+            $data['content'] = str_replace("\r\n", "\n", $data['content']);
+        }
+
         // Handle content types that require more processing.
         if(in_array($data['type'], [
             'image',
             'form',
-            'file'
+            'file',
+            'link',
+            'image_carousel',
+            'video',
         ])) {
 
         } else {
@@ -39,15 +48,18 @@ class ContentController extends Controller
             $page->content()->create($data);
         }
 
-        return redirect()->route('laracms::get.admin/pages/content/create', $page->id)->with('success', 'Content added successfully.');
+        return redirect()->route('laracms::get.admin/pages/content/create', $page->id)->with([
+            'success' => 'Content added successfully.'
+        ]);
     }
 
-    public function edit(Content $content)
+    public function edit(Page $page, Content $content)
     {
         $page->load('content');
 
-        return view('laracms::themes.default.admin.pages.edit', [
-            'page' => $page
+        return view('laracms::themes.default.admin.content.edit', [
+            'page' => $page,
+            'content' => $content
         ]);
     }
 

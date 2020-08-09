@@ -5,9 +5,7 @@
 <p>As there are currently no releases on git or composer, you need to add this repo into your composer.json file:</p>
 <b>composer.json</b>
 <br />
-<code>
-<pre>
-{
+<code><pre>{
     "name": "laravel/laravel",
     ...
     "repositories": [
@@ -18,9 +16,7 @@
     ],
     ...
     
-}
-</pre>
-</code>
+}</pre></code>
 
 <p>Now that you've added the repo to your composer.json file, you can now go ahead and run <code>composer require ashley-upson/lara-cms</code> as normal.</p>
 

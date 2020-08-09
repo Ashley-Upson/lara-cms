@@ -93,6 +93,8 @@ class LaraCMS
             'form',
             'link',
             'file',
+            'image_carousel',
+            'video'
         ];
     }
 

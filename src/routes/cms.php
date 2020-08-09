@@ -4,7 +4,6 @@
 
 Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware([
     'web',
-    'auth'
 ])->group(function() {
 //    Route::prefix('admin')->middleware('admin')->group(function() {
     Route::prefix('admin')->namespace('Admin')->middleware([
@@ -36,7 +35,7 @@ Route::namespace('LaraCMS\Controllers')->as('laracms::')->middleware([
     });
 
     // Standard CMS routes.
-    Route::get('page/{page}', 'PageController@show')->name('get.page');
+    Route::get(config('lara-cms.page_prefix') . '{page}', 'PageController@show')->name('get.page');
 
     Route::prefix('auth')->namespace('Auth')->group(function() {
         Route::get('login', 'AuthController@viewLogin')->name('get.auth/login');

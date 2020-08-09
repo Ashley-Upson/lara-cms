@@ -23,6 +23,12 @@
         </div>
     @endif
 
+    <div class="float-right">
+        <a href="{{ route('laracms::get.admin/pages/edit', $page->id) }}" class="btn btn-sm btn-success">
+            View content
+        </a>
+    </div>
+
     <div class="row">
         <div class="col-lg-6">
             <form name="create_page_content" class="form" action="{{ route('laracms::post.admin/pages/content/store', $page->id) }}" method="post">
@@ -78,10 +84,24 @@
                     </div>
                 </div>
                 <div id="content_html" class="content_editors hidden">
-                    html
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Content
+                            </span>
+                        </div>
+                    </div>
+                    <textarea name="content_html" class="form-control" id="content_editor_html"></textarea>
                 </div>
                 <div id="content_blade" class="content_editors hidden">
-                    blade
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Blade
+                            </span>
+                        </div>
+                    </div>
+                    <textarea name="content_blade" class="form-control" id="content_editor_blade"></textarea>
                 </div>
                 <div id="content_image" class="content_editors hidden">
                     image
@@ -93,10 +113,39 @@
                     form
                 </div>
                 <div id="content_link" class="content_editors hidden">
-                    link
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                URL
+                            </span>
+                        </div>
+                        <input type="url" name="content_link_url" class="form-control" placeholder="https://example.com/your-link" />
+                    </div>
+                    Or...
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                CMS Page
+                            </span>
+                        </div>
+                        <select name="content_link_page_id" class="form-control">
+                            <option selected disabled>Page...</option>
+                            @forelse($pages as $entry)
+                                <option value="{{ $entry->id }}">{{ $entry->title }}</option>
+                            @empty
+                                <option disabled>No pages.</option>
+                            @endforelse
+                        </select>
+                    </div>
                 </div>
                 <div id="content_file" class="content_editors hidden">
                     file
+                </div>
+                <div id="content_image_carousel" class="content_editors hidden">
+                    image carousel
+                </div>
+                <div id="content_video" class="content_editors hidden">
+                    video
                 </div>
                 <div class="input-group input-group-sm">
                     <button type="submit" class="btn btn-sm btn-success">
@@ -109,13 +158,26 @@
 @endsection
 
 @section('footer')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/codemirror.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/theme/material-darker.css" />
+
     <script src="https://cdn.tiny.cloud/1/myzx8qzp1ptmimdk1gqmk80idu52mq5pas1v09wcyda9iwpa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/codemirror.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/mode/xml/xml.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/mode/htmlmixed/htmlmixed.js"></script>
 
     <script type="text/javascript">
         let components = {
-            text: null
+            text: null,
+            html: null,
+            blade: null,
         }
 
+        // Initialise the default type.
         components.text = tinymce.init({
             selector: '#content_editor_text',
             height: 250,
@@ -138,6 +200,28 @@
                     components.text = tinymce.init({
                         selector: '#content_editor_text'
                     });
+                }
+
+                if((type === 'html' && components.html === null) || (type === 'blade' && components.blade === null)) {
+                    components[type] = CodeMirror.fromTextArea(document.getElementById('content_editor_' + type), {
+                        lineNumbers: true,
+                        tabSize: 4,
+                        mode: {
+                            name: "htmlmixed",
+                            scriptTypes: [
+                                {
+                                    matches: /\/x-handlebars-template|\/x-mustache/i,
+                                    mode: null
+                                },
+                                {
+                                    matches: /(text|application)\/(x-)?vb(a|script)/i,
+                                    mode: "vbscript"
+                                }
+                            ]
+                        },
+                        lineSeparator: '\n'
+                    });
+                    components[type].setOption('theme', 'material-darker');
                 }
             }
         }

@@ -164,7 +164,9 @@
                                 {{ $content->order }}
                             </td>
                             <td>
-
+                                <a href="{{ route('laracms::get.admin/pages/content/edit', ['page' => $page->id, 'content' => $content->id]) }}" class="btn btn-sm btn-warning">
+                                    Edit
+                                </a>
                             </td>
                         </tr>
                     @empty
