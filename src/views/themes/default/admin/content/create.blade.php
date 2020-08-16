@@ -94,6 +94,9 @@
                     <textarea name="content_html" class="form-control" id="content_editor_html"></textarea>
                 </div>
                 <div id="content_blade" class="content_editors hidden">
+                    <p class="alert alert-info">
+                        Please note, some functions are disabled through this UI that are available through standard blade files.
+                    </p>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">

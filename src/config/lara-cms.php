@@ -39,4 +39,16 @@ return [
      */
     'cms_connection' => 'mysql',
     'cms_table_prefix' => '',
+
+    /**
+     * The following functions are removed by default from blade contents.
+     * These functions can reveal protected information about the application, such as database passwords.
+     * It is recommended to only add to this list; removing entries may expose data.
+     * Example usage: {{ env('DB_PASSWORD') }}
+     */
+    'blade_banned_functions' => [
+        'env',
+        'app',
+        'config',
+    ]
 ];

@@ -1,13 +1,7 @@
 @php
 $php = \Illuminate\Support\Facades\Blade::compileString($content->content);
 
-$bannedFunctions = [
-    'env',
-    'app',
-    'config'
-];
-
-foreach($bannedFunctions as $function) {
+foreach(config('lara-cms.blade_banned_functions') as $function) {
     $php = str_replace('e(' . $function, 'e(e', $php);
 }
 
